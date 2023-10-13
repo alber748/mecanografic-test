@@ -43,3 +43,26 @@ header.dark-mode {
 .mode-btn:active {
   background-color: #404e44;
 }
+
+.container-words {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  background-color: aliceblue;
+  padding: 1rem;
+  border-radius: 8px;
+
+  width: 100%;
+  min-height: 100px;
+  overflow-y: scroll;
+}
+
+.word {
+  font-size: 1.5rem;
+}
+
+.first-item-class {
+  color: #377E47 !important;
+}

@@ -1,0 +1,45 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body.ligth-mode {
+  background-color: azure;
+}
+header.light-mode {
+  background-color: #377E47;
+  color: azure;
+}
+body.dark-mode {
+  background-color: #444654;
+}
+header.dark-mode {
+  background-color: #546859;
+  color: azure;
+}
+
+.home-link {
+  color: azure;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: normal;
+  padding: 0.5rem;
+}
+
+.mode-btn.dark-mode {
+  background-color: #546859;
+  color: azure;
+}
+.mode-btn {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+}
+.mode-btn:hover {
+  background-color: #718375;
+}
+.mode-btn:active {
+  background-color: #404e44;
+}

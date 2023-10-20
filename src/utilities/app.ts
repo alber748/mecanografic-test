@@ -90,9 +90,9 @@ const nextWord = (firstElement : HTMLElement) => {
         firstElement.nextElementSibling?.classList.add('first-item-class');
         
         if (dataNew.length === 0) {
-            dataNew = dataRamdon.filter((word, index) => index !== 0);
+            dataNew = dataRamdon.filter((word, index) => word && index !== 0);
         }else {
-            dataNew = dataNew.filter((word, index) => index !== 0);
+            dataNew = dataNew.filter((word, index) => word && index !== 0);
         }
         buildWordList(dataNew, containerWords!)
     }
@@ -131,7 +131,6 @@ const buildWordList = (data : string [], containerWords : Element) => {
 
     if(data.length < 90) {
         dataNew = data.concat(dataRamdon);
-        console.log(data)
     }
     const wordListItems = data.map((word, index) => {
     const isFirstElement = index === 0;

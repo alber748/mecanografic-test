@@ -14,8 +14,6 @@ export const counterErrors = () => {
 export const counterSuccess = () => {
 
       counts.success += 1;
-
-      console.log(counts.success);
 }
 
 

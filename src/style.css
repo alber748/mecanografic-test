@@ -64,7 +64,17 @@ header.dark-mode {
 }
 
 .first-item-class {
-  color: #377E47 !important;
+
+  background-color: #e0e0e0 !important;
+  border-radius: 5px !important;
+  border: 1px solid #e0e0e0 !important;
+}
+.first-item-class.error {
+
+  color: rgb(199, 83, 83) !important;
+}
+.first-item-class.correct {
+  color: rgb(84, 151, 101) !important;
 }
 .input-text {
   width: 100%;

@@ -30,22 +30,28 @@
   <div class="container mt-5">
     <div class="row  d-flex justify-content-center align-items-center ">
       <div class="col-12 col-lg-8">
-        <div class="container-words d-flex flex-row justify-content-start" id="container-words">
-
+        <div class="container-words d-flex flex-row justify-content-start" id="container-words">¿
         </div>
         <div class="container-input">
           <div class="row mt-3">
             <div class="col-10">
-              <input type="text" class="input-text" id="text-word">
+              <input type="text" class="input-text form-control" id="text-word" autocomplete="off">
             </div>
-            <div class="col-2">
-              <div class="counter-text d-flex justify-content-end" id="counter">
+            <div class="col-2 d-flex justify-content-between">
+              <div class="counter-text d-flex justify-content-end" id="cronometro">
                 1:00
               </div>
+              <button id="clearBtn" class="btn btn-light">
+                Clear
+              </button>
             </div>
           </div>
 
         </div>
+      </div>
+
+      <div class="col-12 col-lg-8 p-3" style="color: #fff;" id="results">
+        
       </div>
     </div>
   </div>

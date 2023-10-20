@@ -1,5 +1,37 @@
+import { chronometerIsRunning, counterErrors, counterSuccess, counts, initChronometer } from "./counter";
+
 let dataRamdon : string [] = [];
 let dataNew : string [] = [];
+
+let controls = {
+    errors: false,
+    success: false,
+}
+
+export const clearApp = () => {
+    const containerWords = document.querySelector('#container-words');
+
+    counts.errors = 0;
+    counts.success = 0;
+    counts.complete = 0;
+    counts.pulsaciones = 0;
+
+    dataNew = [];
+    dataRamdon = shuffleArray(dataRamdon);
+    buildWordList(dataRamdon, containerWords!);
+
+    const input : HTMLInputElement = document.querySelector('#text-word')!;
+    input.disabled = false;
+
+    const result = document.querySelector('#results')!;
+    result.innerHTML = '';
+
+    const cronometro : HTMLElement = document.getElementById("cronometro")!;
+    cronometro.textContent = '1:00';
+
+    controls.errors = false;
+    controls.success = false;
+}
 
 export const App = async () => {
     const data = await getData('/src/assets/json/words.json');
@@ -10,18 +42,47 @@ export const App = async () => {
     const inputElement = document.querySelector('#text-word')!;
 
     inputElement.addEventListener('input', (e) => {
+
         if (e.target instanceof HTMLInputElement) {
             const valor = e.target.value;
-            if(valor) {
-                checkWord(valor)
+            counts.pulsaciones += 1;
+            const firstElement = document.querySelector('.first-item-class');
+            if (valor && valor !== ' ') {
+                if(valor.includes(' ')) {
+                    nextWord(firstElement as HTMLElement);
+
+                    if(!chronometerIsRunning){
+                        initChronometer();
+                    }
+
+                    cleanInput();
+                }else {
+                    checkWord(valor);
+                }
+            }else {
+                firstElement?.classList.remove('correct');
+                firstElement?.classList.remove('error');
+                cleanInput();
             }
         }
+    });
+
+    const button = document.querySelector('#clearBtn')!;
+
+    button.addEventListener('click', () => {
+        clearApp();
     })
 }
 
-const nextWord = () => {
+const nextWord = (firstElement : HTMLElement) => {
+
+    counts.complete += 1;
     const containerWords = document.querySelector('#container-words');
-    const firstElement = document.querySelector('.first-item-class');
+
+    if (controls.success) {
+        counterSuccess();
+        controls.success = false;
+    }
 
     if (firstElement) {
         
@@ -43,15 +104,22 @@ const cleanInput = () => {
 }
 
 const checkWord = (word : string) => {
-    debugger
+
+    const firstElement = document.querySelector('.first-item-class');
     const actualWord = dataNew.length !== 0 ? dataNew[0] : dataRamdon[0];
 
-    if(word === actualWord) {
-        nextWord();
-        setTimeout(() => {
-            cleanInput(); 
-        }, 200);
-    }}
+    if(actualWord.startsWith(word)) {
+        if(actualWord === word) {
+            controls.success = true;
+        }
+    firstElement?.classList.remove('error');
+    firstElement?.classList.add('correct');
+    } else {
+        firstElement?.classList.remove('correct');
+        firstElement?.classList.add('error');
+        counterErrors();
+    }
+}
 
 const getData = async (url : string) => {
     const response = await fetch(url);
@@ -60,6 +128,11 @@ const getData = async (url : string) => {
 }
 
 const buildWordList = (data : string [], containerWords : Element) => {
+
+    if(data.length < 90) {
+        dataNew = data.concat(dataRamdon);
+        console.log(data)
+    }
     const wordListItems = data.map((word, index) => {
     const isFirstElement = index === 0;
     const additionalClass = isFirstElement ? 'first-item-class' : '';
